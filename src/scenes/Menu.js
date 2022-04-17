@@ -7,6 +7,8 @@ class Menu extends Phaser.Scene {
         this.load.audio('sfx_select', './assets/splash.wav');
         this.load.audio('sfx_explosion', './assets/splash.wav');
         this.load.audio('sfx_rocket', './assets/cannon_shot.wav');
+        this.load.audio('music', './assets/the-buccaneers-haul.mp3');
+        //Music: The Buccaneer's Haul by Shane Ivers - https://www.silvermansound.com
     }
 
     create() {
@@ -41,19 +43,21 @@ class Menu extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
             // Easy mode
             game.settings = {
-                spaceshipSpeed: 3,
+                spaceshipSpeed: 2,
                 gameTimer: 60000    
            }
            this.sound.play('sfx_select');
+           this.sound.play('music');
            this.scene.start("playScene");    
         }
         if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
             // Expert mode
             game.settings = {
-                spaceshipSpeed: 4,
+                spaceshipSpeed: 3,
                 gameTimer: 45000    
             }
             this.sound.play('sfx_select');
+            this.sound.play('music');
             this.scene.start("playScene");
         }
     }
