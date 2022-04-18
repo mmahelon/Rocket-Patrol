@@ -21,14 +21,15 @@ class Play extends Phaser.Scene {
         this.time.addEvent({
             delay: 1000,
             callback: ()=>{
-                if (this.game.settings.gameTimer > 0) {
+                if (this.timer_tracker > 0) {
                     this.timer_tracker -= 1
-                    this.game.settings.gameTimer -= 1000
                     this.timerRight.text = this.timer_tracker
                 }
             },
             loop: true
         })
+
+
 
         // place tile sprite
         this.starfield = this.add.tileSprite(0, 0, 640, 480, 'starfield').setOrigin(0, 0);
@@ -99,6 +100,7 @@ class Play extends Phaser.Scene {
             fixedWidth: 370
         }
         this.wordCenter = this.add.text(borderUISize + borderPadding*10, borderUISize + borderPadding*2, this.word, wordConfig);
+        this.wordCenter.alpha = 0;
 
          // initialize timer tracker
          this.timer_tracker = game.settings.gameTimer/1000;
@@ -118,7 +120,7 @@ class Play extends Phaser.Scene {
              fixedWidth: 40
          }
          this.timerRight = this.add.text(borderUISize + borderPadding*49, borderUISize + borderPadding*2, this.timer_tracker, timerConfig);
-
+        
 
         
         
@@ -148,15 +150,6 @@ class Play extends Phaser.Scene {
             this.scene.start("menuScene");
         }
 
-        //if(!this.p1rocket.isFiring) {
-          //  this.wordConfig.alpha = 0;
-           
-        //if(this.p1Rocket.isFiring){
-           // this.wordConfig.alpha = 1;
-           
-        
-        
-
         this.starfield.tilePositionX -= 4;  // update tile sprite
 
         if(!this.gameOver) {
@@ -167,6 +160,9 @@ class Play extends Phaser.Scene {
         }
         if(this.gameOver) {
             this.game.sound.stopAll();
+        }
+        if(Phaser.Input.Keyboard.JustUp(keyF)) {
+            this.wordCenter.alpha = 1;
         }
 
         // check collisions
@@ -209,10 +205,11 @@ class Play extends Phaser.Scene {
             boom.destroy();                       // remove explosion sprite
         });
         // score add and repaint
+        this.wordCenter.alpha = 0;
         this.p1Score += ship.points;
         this.scoreLeft.text = this.p1Score;
         this.timer_tracker += 1
-        this.clock += 1000
+        this.clock.delay += 1000
         this.timerRight.text = this.timer_tracker
         this.sound.play('sfx_explosion');
         }
