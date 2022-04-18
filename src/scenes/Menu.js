@@ -4,20 +4,18 @@ class Menu extends Phaser.Scene {
     }
     preload() {
         // load audio
-        this.load.audio('sfx_select', './assets/splash.wav');
-        this.load.audio('sfx_explosion', './assets/splash.wav');
-        this.load.audio('sfx_rocket', './assets/cannon_shot.wav');
-        this.load.audio('music', './assets/the-buccaneers-haul.mp3');
-        //Music: The Buccaneer's Haul by Shane Ivers - https://www.silvermansound.com
+        this.load.audio('sfx_select', './assets/assets_blip_select12.wav');
+        this.load.audio('sfx_explosion', './assets/assets_explosion38.wav');
+        this.load.audio('sfx_rocket', './assets/assets_rocket_shot.wav');
     }
 
     create() {
         //menu text configuration
         let menuConfig = {
-            fontFamily: 'Times New Roman',
+            fontFamily: 'Courier',
             fontSize: '28px',
-            backgroundColor: '#AC3232',
-            color: '#FFFFFF',
+            backgroundColor: '#F3B141',
+            color: '#843605',
             align: 'right',
             padding: {
                 top: 5,
@@ -27,9 +25,9 @@ class Menu extends Phaser.Scene {
         }
         
         // show menu text
-        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'PIRATE PATROL', menuConfig).setOrigin(0.5);
+        this.add.text(game.config.width/2, game.config.height/2 - borderUISize - borderPadding, 'ROCKET PATROL', menuConfig).setOrigin(0.5);
         this.add.text(game.config.width/2, game.config.height/2, 'Use ←→ arrows to move & (F) to fire', menuConfig).setOrigin(0.5);
-        menuConfig.backgroundColor = '#663931';
+        menuConfig.backgroundColor = '#00FF00';
         menuConfig.color = '#000';
         this.add.text(game.config.width/2, game.config.height/2 + borderUISize + borderPadding, 'Press ← for Novice or → for Expert', menuConfig).setOrigin(0.5);
 
@@ -43,22 +41,20 @@ class Menu extends Phaser.Scene {
         if (Phaser.Input.Keyboard.JustDown(keyLEFT)) {
             // Easy mode
             game.settings = {
-                spaceshipSpeed: 2,
+                spaceshipSpeed: 3,
                 gameTimer: 60000    
            }
            this.sound.play('sfx_select');
-           this.sound.play('music');
            this.scene.start("playScene");    
         }
         if (Phaser.Input.Keyboard.JustDown(keyRIGHT)) {
             // Expert mode
             game.settings = {
-                spaceshipSpeed: 3,
+                spaceshipSpeed: 4,
                 gameTimer: 45000    
             }
             this.sound.play('sfx_select');
-            this.sound.play('music');
-            this.scene.start("playScene");
+            this.scene.start("playScene");    
         }
     }
 }

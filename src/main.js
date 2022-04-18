@@ -1,3 +1,6 @@
+//Micah Mahelona  
+//Finished 4/11/2022
+//Reverted 4/18/2022
 let config = {
     type: Phaser.AUTO,
     width: 640,
